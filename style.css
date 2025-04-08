@@ -52,3 +52,77 @@ button.choice:hover {
     padding-right: 8px; 
     line-height: 24px; 
 }
+
+.result-button {
+  background-color: #e0ff88;
+  color: #222;
+  border: none;
+  border-radius: 16px;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  width: 80%;
+  max-width: 360px;
+  margin: 0.5rem auto;
+  display: block;
+  text-align: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.result-button:hover {
+  background-color: #d6f16a;
+  transform: scale(1.02);
+}
+
+#start-screen {
+  text-align: center;
+  padding: 4rem 1rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-top: 4rem;
+}
+
+#start-screen h1 {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+#start-screen p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+#start-btn {
+  background-color: #3498db;
+  color: white;
+  font-size: 1.2rem;
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#start-btn:hover {
+  background-color: #2980b9;
+}
+
+#progress-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: #eee;
+  z-index: 1000;
+}
+
+#progress-bar {
+  height: 6px;
+  width: 0%;
+  background: #3498db;
+  transition: width 0.3s ease;
+}

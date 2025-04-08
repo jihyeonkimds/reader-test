@@ -161,6 +161,32 @@ function showResult() {
     quizDiv.innerHTML = "";
     resultDiv.innerHTML = `<h2>${top[0]}</h2><p>가장 잘 맞는 유형이에요!</p>`;
     progressBar.parentElement.style.display = "none";
+
+    const retryBtn = document.createElement("button");
+    retryBtn.innerText = "다시 하기";
+    retryBtn.className = "result-button";
+    retryBtn.onclick = () => location.reload();
+
+    const saveBtn = document.createElement("button");
+    saveBtn.innerText = "결과 저장하기";
+    saveBtn.className = "result-button";
+
+    const shareBtn = document.createElement("button");
+    shareBtn.innerText = "결과 공유하기";
+    shareBtn.className = "result-button";
+
+    const btnWrapper = document.createElement("div");
+    btnWrapper.style.display = "flex";
+    btnWrapper.style.flexDirection = "column";
+    btnWrapper.style.alignItems = "center";
+    btnWrapper.style.gap = "10px";
+    btnWrapper.style.marginTop = "20px";
+
+    btnWrapper.appendChild(retryBtn);
+    btnWrapper.appendChild(saveBtn);
+    btnWrapper.appendChild(shareBtn);
+
+    resultDiv.appendChild(btnWrapper);
 }
 
 function afterMain() {
@@ -168,5 +194,9 @@ function afterMain() {
     showResult();
 }
 
-questionSet = mainQuestions;
-showQuestion(questionSet, afterMain);
+document.getElementById("start-btn").onclick = () => {
+    document.getElementById("start-screen").style.display = "none";
+    document.getElementById("quiz-container").style.display = "block";
+    questionSet = mainQuestions;
+    showQuestion(questionSet, afterMain);
+};
