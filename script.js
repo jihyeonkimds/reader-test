@@ -101,7 +101,6 @@ const score = {
     "지식 탐구형": 0
 };
 
-let userName = "";
 let current = 0;
 let absoluteCurrent = 0;
 let questionSet = mainQuestions;
@@ -111,14 +110,6 @@ let maxQuestions = mainQuestions.length;
 const quizDiv = document.getElementById("quiz");
 const resultDiv = document.getElementById("result");
 const progressBar = document.getElementById("progress-bar");
-
-function getProperHonorific(name) {
-    const lastChar = name.charAt(name.length - 1);  // 마지막 글자
-    const isKorean = /[\uac00-\ud7af]/.test(lastChar);  // 한글인지 확인
-    const hasBatchim = isKorean && /[가-힣]/.test(lastChar) && (lastChar.charCodeAt(0) - 0xac00) % 28 !== 0;
-
-    return hasBatchim ? `${name}은` : `${name}는`;
-}
 
 function updateProgress() {
     const percent = ((absoluteCurrent + 1) / maxQuestions) * 100;
@@ -169,10 +160,7 @@ function showResult() {
     const top = sorted[0];
     quizDiv.innerHTML = "";
     
-    // Get correct honorific
-    const resultName = userName === "" ? "당신" : getProperHonorific(userName);
-    
-    resultDiv.innerHTML = `<h2>${resultName} ${top[0]}!</h2><p>이 유형에 대한 간단한 설명입니다.</p>`;
+    resultDiv.innerHTML = `<h2>당신은 ${top[0]}이에요!</h2><p>이 유형에 대한 간단한 설명입니다.</p>`;
     progressBar.parentElement.style.display = "none";
 
     const retryBtn = document.createElement("button");
@@ -208,13 +196,6 @@ function afterMain() {
 }
 
 document.getElementById("start-btn").onclick = () => {
-    userName = document.getElementById("username").value.trim();  // Capture name
-
-    // If the name is empty, set default name to "당신"
-    if (userName === "") {
-        userName = "당신";
-    }
-
     document.getElementById("start-screen").style.display = "none";
     document.getElementById("quiz-container").style.display = "block";
     questionSet = mainQuestions;
