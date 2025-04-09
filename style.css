@@ -12,16 +12,17 @@ h1, h2 {
 }
 
 .question { 
-    background: #fff; 
+    text-align: center;
+    background: none; 
     padding: 1.2rem; 
     border-radius: 12px; 
     margin-top: 1.2rem; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+    box-shadow: none;
 }
     
 button.choice { 
-    display: block; width: 100%; 
-    margin: 0.5rem 0; padding: 1rem; 
+    display: block; width: 80%; 
+    margin: 0.5rem auto; padding: 1rem; 
     font-size: 1rem; border: none; 
     border-radius: 6px; 
     background: #3498db; 
@@ -125,4 +126,20 @@ button.choice:hover {
   width: 0%;
   background: #3498db;
   transition: width 0.3s ease;
+}
+
+#logo {
+  display: block;
+  margin: 2rem auto 0rem auto;
+  max-width: 120px;
+  height: auto;
+}
+
+#question-image {
+  display: block;
+  margin: 1rem auto 0.5rem auto;
+  width: 100%;
+  height: auto;
+  max-width: 30%;
+  aspect-ratio: 1 / 1;
 }

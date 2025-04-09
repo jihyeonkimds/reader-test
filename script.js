@@ -119,7 +119,11 @@ function updateProgress() {
 function showQuestion(set, callback) {
     updateProgress();
     const q = questionSet[current];
-    quizDiv.innerHTML = `<p><strong>Q${absoluteCurrent + 1}.</strong> ${q.q}</p>`;
+    quizDiv.innerHTML = `<p></strong> ${q.q}</p>`;
+    // Update the question number display
+    const questionNumberDisplay = document.getElementById("question-number");
+    const totalQuestions = questionSet.length;
+    questionNumberDisplay.innerText = `${absoluteCurrent + 1} / ${totalQuestions}`;
     q.options.forEach(option => {
     const btn = document.createElement("button");
     btn.innerText = option.text;
