@@ -35,7 +35,7 @@ button.choice:hover {
     
 .result { 
     text-align: center; 
-    margin-top: 2rem; 
+    margin-top: -2rem; 
 }
     
 .bar-container { 
@@ -149,4 +149,12 @@ button.choice:hover {
   max-width: 200px;
   margin: 1rem auto;
   height: auto;
+}
+
+#result-buttons {
+  display: flex;
+  flex-direction: column;       /* 버튼들을 세로 방향으로 쌓음 */
+  align-items: center;
+  gap: 10px;
+  margin-top: 2rem;
 }

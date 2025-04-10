@@ -212,6 +212,9 @@ function showQuestion(set, callback) {
 function showResult() {
     document.getElementById("question-number").style.display = "none";
     document.getElementById("question-image").style.display = "none";
+    document.getElementById("retry-btn").style.display = "block";
+    document.getElementById("save-btn").style.display = "block";
+    document.getElementById("share-btn").style.display = "block";
   
     const sorted = Object.entries(score).sort((a, b) => b[1] - a[1]);
     const top = sorted[0];
@@ -235,9 +238,37 @@ function afterMain() {
     showResult();
 }
 
-document.getElementById("start-btn").onclick = () => {
+const startBtn = document.getElementById("start-btn");
+if (startBtn) {
+  startBtn.onclick = () => {
     document.getElementById("start-screen").style.display = "none";
     document.getElementById("quiz-container").style.display = "block";
     questionSet = mainQuestions;
     showQuestion(questionSet, afterMain);
-};
+  };
+}
+
+const retryBtn = document.getElementById("retry-btn");
+if (retryBtn) {
+  retryBtn.onclick = () => {
+    Object.keys(score).forEach(key => score[key] = 0);
+    current = 0;
+    absoluteCurrent = 0;
+    questionSet = mainQuestions;
+    history = [];
+
+    document.getElementById("quiz-container").style.display = "none";
+    document.getElementById("question-image").style.display = "none";
+    document.getElementById("result-image").style.display = "none";
+    document.getElementById("question-number").style.display = "none";
+    document.getElementById("result-buttons").style.display = "none";
+    progressBar.style.width = "0%";
+    progressBar.parentElement.style.display = "block";
+    resultDiv.innerHTML = "";
+
+    const startScreen = document.getElementById("start-screen");
+    startScreen.style.display = "block";
+    startScreen.style.visibility = "visible";
+    startScreen.style.opacity = "1";
+  };
+}
