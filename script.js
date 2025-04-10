@@ -172,6 +172,7 @@ function showQuestion(set, callback) {
     quizDiv.innerHTML = `<p></strong> ${q.q}</p>`;
     // Update the question number display
     const questionNumberDisplay = document.getElementById("question-number");
+    questionNumberDisplay.style.display = "block";
     const totalQuestions = questionSet.length;
     questionNumberDisplay.innerText = `${absoluteCurrent + 1} / ${totalQuestions}`;
     q.options.forEach(option => {
@@ -210,28 +211,47 @@ function showQuestion(set, callback) {
 }
 
 function showResult() {
+    console.log("✅ showResult 함수 실행됨");
+    console.log("current", current, "max", questionSet.length);
+  
+    // 퀴즈 관련 요소 숨기기
     document.getElementById("question-number").style.display = "none";
     document.getElementById("question-image").style.display = "none";
-    document.getElementById("retry-btn").style.display = "block";
-    document.getElementById("save-btn").style.display = "block";
-    document.getElementById("share-btn").style.display = "block";
+    document.getElementById("quiz-container").style.display = "none";
   
+    // 결과 관련 요소 가져오기
+    const resultContainer = document.getElementById("result-container");
+    const resultText = document.getElementById("result");
+    const resultImage = document.getElementById("result-image");
+  
+    // 요소 존재 확인
+    if (!resultContainer || !resultText || !resultImage) {
+      console.error("❌ 결과 요소 중 일부가 없습니다!");
+      return;
+    }
+  
+    resultContainer.style.display = "block";
+    resultImage.style.display = "block";
+  
+    // 최종 유형 계산
     const sorted = Object.entries(score).sort((a, b) => b[1] - a[1]);
     const top = sorted[0];
     const resultType = top[0];
   
-    quizDiv.innerHTML = "";
-  
-    const resultImage = document.getElementById("result-image");
+    // 이미지 및 텍스트 출력
     resultImage.src = resultImages[resultType];
-    resultImage.style.display = "block";
+    resultText.innerHTML = `<h2>당신은 ${resultType}이에요!</h2><p>이 유형에 대한 간단한 설명입니다.</p>`;
   
-    resultDiv.innerHTML = `<h2>당신은 ${top[0]}이에요!</h2><p>이 유형에 대한 간단한 설명입니다.</p>`;
+    // 디버깅 로그
+    console.log("resultType:", resultType);
+    console.log("HTML 출력:", resultText.innerHTML);
+  
+    // 진행 바 숨기기
     progressBar.parentElement.style.display = "none";
   
-    // 버튼 영역 표시
-    document.getElementById("result-buttons").style.display = "flex";
-  }   
+    // 버튼 보이기
+    document.getElementById("result-buttons").style.display = "block"; 
+}
 
 function afterMain() {
     maxQuestions = mainQuestions.length;
@@ -250,25 +270,23 @@ if (startBtn) {
 
 const retryBtn = document.getElementById("retry-btn");
 if (retryBtn) {
-  retryBtn.onclick = () => {
-    Object.keys(score).forEach(key => score[key] = 0);
-    current = 0;
-    absoluteCurrent = 0;
-    questionSet = mainQuestions;
-    history = [];
+    retryBtn.onclick = () => {
+        Object.keys(score).forEach(key => score[key] = 0);
+        current = 0;
+        absoluteCurrent = 0;
+        questionSet = mainQuestions;
+        history = [];
+      
+        // 결과 화면 숨기기
+        document.getElementById("result-container").style.display = "none";
+        document.getElementById("quiz-container").style.display = "none";
 
-    document.getElementById("quiz-container").style.display = "none";
-    document.getElementById("question-image").style.display = "none";
-    document.getElementById("result-image").style.display = "none";
-    document.getElementById("question-number").style.display = "none";
-    document.getElementById("result-buttons").style.display = "none";
-    progressBar.style.width = "0%";
-    progressBar.parentElement.style.display = "block";
-    resultDiv.innerHTML = "";
+        progressBar.style.width = "0%";
+        progressBar.parentElement.style.display = "block";
+      
+        document.getElementById("result").innerHTML = "";
 
-    const startScreen = document.getElementById("start-screen");
-    startScreen.style.display = "block";
-    startScreen.style.visibility = "visible";
-    startScreen.style.opacity = "1";
-  };
+        // 시작 화면으로 복귀
+        document.getElementById("start-screen").style.display = "block";
+      };
 }
