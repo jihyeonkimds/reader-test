@@ -212,50 +212,23 @@ function showQuestion(set, callback) {
 function showResult() {
     document.getElementById("question-number").style.display = "none";
     document.getElementById("question-image").style.display = "none";
-
+  
     const sorted = Object.entries(score).sort((a, b) => b[1] - a[1]);
     const top = sorted[0];
-    const resultType = top[0]; // ← top은 [유형, 점수]
-    
+    const resultType = top[0];
+  
     quizDiv.innerHTML = "";
-
-    // 결과 이미지 설정
+  
     const resultImage = document.getElementById("result-image");
     resultImage.src = resultImages[resultType];
-    resultImage.style.display = "block"; // 혹시 이전에 숨겼을 수도 있으니 표시
-
-    console.log("유형:", resultType);
-    console.log("이미지 경로:", resultImages[resultType]);
-    
+    resultImage.style.display = "block";
+  
     resultDiv.innerHTML = `<h2>당신은 ${top[0]}이에요!</h2><p>이 유형에 대한 간단한 설명입니다.</p>`;
     progressBar.parentElement.style.display = "none";
-
-    const retryBtn = document.createElement("button");
-    retryBtn.innerText = "다시 하기";
-    retryBtn.className = "result-button";
-    retryBtn.onclick = () => location.reload();
-
-    const saveBtn = document.createElement("button");
-    saveBtn.innerText = "결과 저장하기";
-    saveBtn.className = "result-button";
-
-    const shareBtn = document.createElement("button");
-    shareBtn.innerText = "결과 공유하기";
-    shareBtn.className = "result-button";
-
-    const btnWrapper = document.createElement("div");
-    btnWrapper.style.display = "flex";
-    btnWrapper.style.flexDirection = "column";
-    btnWrapper.style.alignItems = "center";
-    btnWrapper.style.gap = "10px";
-    btnWrapper.style.marginTop = "20px";
-
-    btnWrapper.appendChild(retryBtn);
-    btnWrapper.appendChild(saveBtn);
-    btnWrapper.appendChild(shareBtn);
-
-    resultDiv.appendChild(btnWrapper);
-}
+  
+    // 버튼 영역 표시
+    document.getElementById("result-buttons").style.display = "flex";
+  }   
 
 function afterMain() {
     maxQuestions = mainQuestions.length;

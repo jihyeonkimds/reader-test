@@ -143,3 +143,10 @@ button.choice:hover {
   max-width: 30%;
   aspect-ratio: 1 / 1;
 }
+
+#result-image {
+  display: block;
+  max-width: 200px;
+  margin: 1rem auto;
+  height: auto;
+}
