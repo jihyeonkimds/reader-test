@@ -240,7 +240,7 @@ function showResult() {
   
     // 이미지 및 텍스트 출력
     resultImage.src = resultImages[resultType];
-    resultText.innerHTML = `<h2>당신은 ${resultType}이에요!</h2><p>이 유형에 대한 간단한 설명입니다.</p>`;
+    resultText.innerHTML = `<h2>당신의 영어독서 유형은..</br> ${resultType}이에요!</h2>`;
   
     // 디버깅 로그
     console.log("resultType:", resultType);
@@ -289,4 +289,19 @@ if (retryBtn) {
         // 시작 화면으로 복귀
         document.getElementById("start-screen").style.display = "block";
       };
+}
+
+const shareBtn = document.getElementById("share-btn");
+if (shareBtn) {
+  shareBtn.onclick = () => {
+    const resultText = document.getElementById("result").innerText;
+    const shareMessage = `📘 나의 영어 독서 유형 결과!\n\n${resultText}\n\n👉 테스트 하러 가기: ${window.location.href}`;
+
+    navigator.clipboard.writeText(shareMessage).then(() => {
+      alert("링크가 복사되었어요!");
+    }).catch(err => {
+      console.error("❌ 클립보드 복사 실패:", err);
+      alert("복사에 실패했어요. 수동으로 복사해주세요.");
+    });
+  };
 }

@@ -3,7 +3,7 @@ body {
     padding: 2rem; 
     max-width: 700px; 
     margin: auto; 
-    background: none; 
+    background: #f5f4f4; 
 }
 
 h1, h2 { 
@@ -149,7 +149,8 @@ button.choice:hover {
 
 #result-image {
   display: block;
-  max-width: 200px;
+  width: 80%;
+  max-width: 360px;
   margin: 1rem auto;
   height: auto;
 }
