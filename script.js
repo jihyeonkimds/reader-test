@@ -141,6 +141,7 @@ const resultImages = {
     "지식 탐구형": "assets/result-sample-image.png"
   };
 
+let userName = "";
 let current = 0; // 현재 질문 번호
 let absoluteCurrent = 0; // 전체 질문 중 진행 상황
 let questionSet = mainQuestions; 
@@ -150,6 +151,14 @@ let maxQuestions = mainQuestions.length;
 const quizDiv = document.getElementById("quiz");
 const resultDiv = document.getElementById("result");
 const progressBar = document.getElementById("progress-bar");
+
+function getProperHonorific(name) {
+    const lastChar = name.charAt(name.length - 1);  // 마지막 글자
+    const isKorean = /[\uac00-\ud7af]/.test(lastChar);  // 한글인지 확인
+    const hasBatchim = isKorean && /[가-힣]/.test(lastChar) && (lastChar.charCodeAt(0) - 0xac00) % 28 !== 0;
+
+    return hasBatchim ? `${name}은` : `${name}는`;
+}
 
 function updateProgress() {
     const percent = ((absoluteCurrent + 1) / maxQuestions) * 100;
@@ -169,7 +178,9 @@ function showQuestion(set, callback) {
         questionImage.style.display = "none"; // 혹시 없을 경우
     }
 
-    quizDiv.innerHTML = `<p></strong> ${q.q}</p>`;
+    quizDiv.innerHTML = `<p></strong> ${q.q}</p>`;   
+    // Get correct honorific
+    const resultName = userName === "" ? "당신" : getProperHonorific(userName);
     // Update the question number display
     const questionNumberDisplay = document.getElementById("question-number");
     questionNumberDisplay.style.display = "block";
@@ -237,10 +248,10 @@ function showResult() {
     const sorted = Object.entries(score).sort((a, b) => b[1] - a[1]);
     const top = sorted[0];
     const resultType = top[0];
-  
-    // 이미지 및 텍스트 출력
+
+    const displayName = userName ? `${userName}님의` : "당신의";
+    resultText.innerHTML = `<h2>${displayName} 영어독서 유형은..</br> ${resultType}이에요!</h2>`;
     resultImage.src = resultImages[resultType];
-    resultText.innerHTML = `<h2>당신의 영어독서 유형은..</br> ${resultType}이에요!</h2>`;
   
     // 디버깅 로그
     console.log("resultType:", resultType);
@@ -261,6 +272,7 @@ function afterMain() {
 const startBtn = document.getElementById("start-btn");
 if (startBtn) {
   startBtn.onclick = () => {
+    userName = document.getElementById("username").value.trim();
     document.getElementById("start-screen").style.display = "none";
     document.getElementById("quiz-container").style.display = "block";
     questionSet = mainQuestions;
@@ -276,6 +288,8 @@ if (retryBtn) {
         absoluteCurrent = 0;
         questionSet = mainQuestions;
         history = [];
+        document.getElementById("username").value = "";
+        userName = "";
       
         // 결과 화면 숨기기
         document.getElementById("result-container").style.display = "none";

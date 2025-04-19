@@ -202,3 +202,17 @@ button.choice:hover {
     align-items: center;
     z-index: 2;
 }
+
+#username {
+  display: block;
+  margin: 0 auto 1.5rem auto;
+  padding: 1rem;
+  width: 80%;
+  max-width: 400px;
+  font-size: 1.3rem;
+  border: 3px solid #5c1233;
+  border-radius: 16px;
+  background-color: #f8f3f5;
+  color: #5c1233;
+  text-align: center;
+}
