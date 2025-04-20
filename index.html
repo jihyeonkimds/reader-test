@@ -21,7 +21,13 @@
   <div id="quiz-container" style="display: none;">
     <div id="question-number" style="text-align: center; margin-top: 1rem; font-size: 1.2rem; color: #2c3e50;"></div>
     <img src="assets/Sample-image.png" alt="Sample image" id="question-image">
-    <div id="quiz" class="question"></div>
+    <div id="question-wrapper" style="margin-bottom: 1.5rem;">
+      <div id="question-text" class="question"></div>
+    </div>
+    <div id="choices-wrapper">
+      <div id="quiz" class="question"></div>
+      <div id="back-button-wrapper"></div>
+    </div>
     <div id="progress-wrapper" style="width: 100%; height: 6px; background: #eee;">
       <div id="progress-bar" style="height: 6px; width: 0%; background: #3498db; transition: width 0.3s;"></div>
     </div>

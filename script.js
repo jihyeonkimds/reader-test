@@ -180,54 +180,57 @@ function showQuestion(set, callback) {
     const q = questionSet[current];
     const questionImage = document.getElementById("question-image");
 
-     // 이미지 설정
+    // 이미지 처리
     if (q.image) {
         questionImage.src = q.image;
         questionImage.style.display = "block";
     } else {
-        questionImage.style.display = "none"; // 혹시 없을 경우
+        questionImage.style.display = "none";
     }
 
-    quizDiv.innerHTML = `<p></strong> ${q.q}</p>`;   
-    // Get correct honorific
-    const resultName = userName === "" ? "당신" : getProperHonorific(userName);
-    // Update the question number display
-    const questionNumberDisplay = document.getElementById("question-number");
-    questionNumberDisplay.style.display = "block";
-    const totalQuestions = questionSet.length;
-    questionNumberDisplay.innerText = `${absoluteCurrent + 1} / ${totalQuestions}`;
+    // 질문 텍스트 렌더링
+    const questionTextEl = document.getElementById("question-text");
+    questionTextEl.innerText = q.q;
+
+    // 선택지 영역 초기화
+    quizDiv.innerHTML = "";
+
+    // 선택지 생성
     q.options.forEach(option => {
-    const btn = document.createElement("button");
-    btn.innerText = option.text;
-    btn.className = "choice";
-    btn.onclick = () => {
-        option.types.forEach(type => {
-        score[type] += option.weight || 1;
-        });
-        history.push({ set, current, selected: option });
-                current++;
-                absoluteCurrent++;
-        if (current < questionSet.length) showQuestion(set, callback);
-        else callback();
-    };
-    quizDiv.appendChild(btn);
+        const btn = document.createElement("button");
+        btn.innerText = option.text;
+        btn.className = "choice";
+        btn.onclick = () => {
+            option.types.forEach(type => {
+                score[type] += option.weight || 1;
+            });
+            history.push({ set, current, selected: option });
+            current++;
+            absoluteCurrent++;
+            if (current < questionSet.length) showQuestion(set, callback);
+            else callback();
+        };
+        quizDiv.appendChild(btn);
     });
 
+    // 뒤로 가기 버튼
+    const backBtnWrapper = document.getElementById("back-button-wrapper");
+    backBtnWrapper.innerHTML = ""; // 기존 버튼 초기화
     if (absoluteCurrent > 0) {
-    const backBtn = document.createElement("button");
-    backBtn.innerText = "◀ 이전 질문으로";
-    backBtn.className = "choice";
-    backBtn.style.background = "#95a5a6";
-    backBtn.onclick = () => {
-        const last = history.pop();
-        last.selected.types.forEach(type => {
-        score[type] -= last.selected.weight || 1;
-        });
-        current = last.current;
-                absoluteCurrent--;
-        showQuestion(last.set, callback);
-    };
-    quizDiv.appendChild(backBtn);
+        const backBtn = document.createElement("button");
+        backBtn.innerText = "◀ 이전 질문으로";
+        backBtn.className = "choice";
+        backBtn.style.background = "#95a5a6";
+        backBtn.onclick = () => {
+            const last = history.pop();
+            last.selected.types.forEach(type => {
+                score[type] -= last.selected.weight || 1;
+            });
+            current = last.current;
+            absoluteCurrent--;
+            showQuestion(last.set, callback);
+        };
+        backBtnWrapper.appendChild(backBtn);
     }
 }
 
