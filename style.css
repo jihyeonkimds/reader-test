@@ -238,3 +238,43 @@ button.choice:hover {
   0% { width: 0%; }
   100% { width: 100%; }
 }
+
+#result-description {
+  text-align: center;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+  margin-top: 1.5rem;
+  white-space: normal;
+}
+
+.cta-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  text-align: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-section p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+#cta-buttons button.choice {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  margin: 0.5rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#cta-buttons button.choice:hover {
+  background-color: #2980b9;
+}

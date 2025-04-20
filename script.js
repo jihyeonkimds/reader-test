@@ -142,13 +142,13 @@ const resultImages = {
   };
 
 const resultDescriptions = {
-  "무관심형": "책에 큰 흥미를 느끼지 않지만, 관심을 가질 수 있는 계기가 필요해요.",
-  "편식형": "좋아하는 책만 반복해서 읽는 경향이 있어요. 다양한 책도 시도해보면 좋아요!",
-  "과잉 열정형": "열정이 넘치고 책을 좋아해요. 꾸준히 독서를 이어가면 좋아요!",
-  "완독 기피형": "처음에는 시작하지만 끝까지 읽는 데 어려움을 느낄 수 있어요.",
-  "외부 동기형": "스스로보다는 누군가의 권유에 따라 책을 읽는 편이에요.",
-  "수동형": "자극에는 반응하지만 스스로는 잘 시작하지 않는 독서 태도를 보여요.",
-  "지식 탐구형": "새로운 지식이나 정보에 관심이 많고 탐구심이 강한 독서 태도를 가지고 있어요."
+  "무관심형": "<h3>영어 책의 재미를 알아가봐요!</h3>책에 큰 흥미를 느끼지 않지만,</br>관심을 가질 수 있는 계기가 필요해요.",
+  "편식형": "<h3>다른 재미도 탐색해보는 건 어때요?</h3>좋아하는 책만 반복해서 읽는 경향이 있어요.</br>다양한 책도 시도해보면 좋아요!",
+  "과잉 열정형": "<h3>책을 마음껏 읽을 수 있는 환경으로 초대해요!</h3>열정이 넘치고 책을 좋아해요.</br>꾸준히 독서를 이어가면 좋아요!",
+  "완독 기피형": "<h3>뒷이야기가 궁금하지 않나요?</h3>처음에는 시작하지만</br>끝까지 읽는 데 어려움을 느낄 수 있어요.",
+  "외부 동기형": "<h3>책 읽고 싶은 마음이 안 든다구요?</h3>스스로보다는 누군가의 권유에 따라</br>책을 읽는 편이에요.",
+  "수동형": "<h3>책이 게임보다 재밌을 수 있어요!</h3>자극에는 반응하지만</br>스스로는 잘 시작하지 않는 독서 태도를 보여요.",
+  "지식 탐구형": "<h3>새로운 세계를 탐험해봐요!</h3>새로운 지식이나 정보에 관심이 많고</br>탐구심이 강한 독서 태도를 가지고 있어요."
 };
 
 let userName = "";
@@ -277,8 +277,21 @@ function showResult() {
         const resultDescription = resultDescriptions[resultType] || "";
         const resultDescEl = document.getElementById("result-description");
         if (resultDescEl) {
-            resultDescEl.innerText = resultDescription;
+            resultDescEl.innerHTML = resultDescription;
             resultDescEl.style.display = "block";
+        }
+        
+        // CTA 버튼 렌더링
+        const ctaContainer = document.getElementById("cta-buttons");
+        if (ctaContainer) {
+            ctaContainer.innerHTML = "";
+            const btnContainer = document.createElement("div");
+            btnContainer.style.marginTop = "1.5rem";
+            btnContainer.innerHTML = `
+              <button onclick="window.open('https://tr.ee/elayc-reservation', '_blank')" class="choice" style="margin: 0.5rem;">상담 예약하기</button>
+              <button onclick="window.open('https://epicenglishhome.link', '_blank')" class="choice" style="margin: 0.5rem;">홈페이지 방문하기</button>
+            `;
+            ctaContainer.appendChild(btnContainer);
         }
 
         document.getElementById("result-buttons").style.display = "block";
@@ -323,6 +336,7 @@ if (retryBtn) {
 
         // 시작 화면으로 복귀
         document.getElementById("start-screen").style.display = "block";
+        document.getElementById("question-number").style.display = "block";
       };
 }
 
