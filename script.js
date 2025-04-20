@@ -141,6 +141,16 @@ const resultImages = {
     "지식 탐구형": "assets/result-sample-image.png"
   };
 
+const resultDescriptions = {
+  "무관심형": "책에 큰 흥미를 느끼지 않지만, 관심을 가질 수 있는 계기가 필요해요.",
+  "편식형": "좋아하는 책만 반복해서 읽는 경향이 있어요. 다양한 책도 시도해보면 좋아요!",
+  "과잉 열정형": "열정이 넘치고 책을 좋아해요. 꾸준히 독서를 이어가면 좋아요!",
+  "완독 기피형": "처음에는 시작하지만 끝까지 읽는 데 어려움을 느낄 수 있어요.",
+  "외부 동기형": "스스로보다는 누군가의 권유에 따라 책을 읽는 편이에요.",
+  "수동형": "자극에는 반응하지만 스스로는 잘 시작하지 않는 독서 태도를 보여요.",
+  "지식 탐구형": "새로운 지식이나 정보에 관심이 많고 탐구심이 강한 독서 태도를 가지고 있어요."
+};
+
 let userName = "";
 let current = 0; // 현재 질문 번호
 let absoluteCurrent = 0; // 전체 질문 중 진행 상황
@@ -252,7 +262,14 @@ function showResult() {
     const displayName = userName ? `${userName}님의` : "당신의";
     resultText.innerHTML = `<h2>${displayName} 영어독서 유형은..</br> ${resultType}이에요!</h2>`;
     resultImage.src = resultImages[resultType];
-  
+    
+    const resultDescription = resultDescriptions[resultType] || "";
+    const resultDescEl = document.getElementById("result-description");
+    if (resultDescEl) {
+      resultDescEl.innerText = resultDescription;
+      resultDescEl.style.display = "block";
+    }
+
     // 디버깅 로그
     console.log("resultType:", resultType);
     console.log("HTML 출력:", resultText.innerHTML);
