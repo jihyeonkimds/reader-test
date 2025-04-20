@@ -180,6 +180,9 @@ function showQuestion(set, callback) {
     const q = questionSet[current];
     const questionImage = document.getElementById("question-image");
 
+    // 문항 번호 표시
+    document.getElementById("question-number").innerText = `${absoluteCurrent + 1} / ${maxQuestions}`;
+
     // 이미지 처리
     if (q.image) {
         questionImage.src = q.image;
@@ -242,46 +245,44 @@ function showResult() {
     document.getElementById("question-number").style.display = "none";
     document.getElementById("question-image").style.display = "none";
     document.getElementById("quiz-container").style.display = "none";
-  
-    // 결과 관련 요소 가져오기
-    const resultContainer = document.getElementById("result-container");
-    const resultText = document.getElementById("result");
-    const resultImage = document.getElementById("result-image");
-  
-    // 요소 존재 확인
-    if (!resultContainer || !resultText || !resultImage) {
-      console.error("❌ 결과 요소 중 일부가 없습니다!");
-      return;
-    }
-  
-    resultContainer.style.display = "block";
-    resultImage.style.display = "block";
-  
-    // 최종 유형 계산
-    const sorted = Object.entries(score).sort((a, b) => b[1] - a[1]);
-    const top = sorted[0];
-    const resultType = top[0];
 
-    const displayName = userName ? `${userName}님의` : "당신의";
-    resultText.innerHTML = `<h2>${displayName} 영어독서 유형은..</br> ${resultType}이에요!</h2>`;
-    resultImage.src = resultImages[resultType];
-    
-    const resultDescription = resultDescriptions[resultType] || "";
-    const resultDescEl = document.getElementById("result-description");
-    if (resultDescEl) {
-      resultDescEl.innerText = resultDescription;
-      resultDescEl.style.display = "block";
-    }
+    // 로딩 화면 보여주기
+    const loadingScreen = document.getElementById("loading-screen");
+    loadingScreen.style.display = "block";
 
-    // 디버깅 로그
-    console.log("resultType:", resultType);
-    console.log("HTML 출력:", resultText.innerHTML);
-  
-    // 진행 바 숨기기
-    progressBar.parentElement.style.display = "none";
-  
-    // 버튼 보이기
-    document.getElementById("result-buttons").style.display = "block"; 
+    // 2.5초 후 결과 출력
+    setTimeout(() => {
+        loadingScreen.style.display = "none";
+
+        const resultContainer = document.getElementById("result-container");
+        const resultText = document.getElementById("result");
+        const resultImage = document.getElementById("result-image");
+
+        if (!resultContainer || !resultText || !resultImage) {
+            console.error("❌ 결과 요소 중 일부가 없습니다!");
+            return;
+        }
+
+        resultContainer.style.display = "block";
+        resultImage.style.display = "block";
+
+        const sorted = Object.entries(score).sort((a, b) => b[1] - a[1]);
+        const top = sorted[0];
+        const resultType = top[0];
+
+        const displayName = userName ? `${userName}님의` : "당신의";
+        resultText.innerHTML = `<h2>${displayName} 영어독서 유형은..</br> ${resultType}이에요!</h2>`;
+        resultImage.src = resultImages[resultType];
+
+        const resultDescription = resultDescriptions[resultType] || "";
+        const resultDescEl = document.getElementById("result-description");
+        if (resultDescEl) {
+            resultDescEl.innerText = resultDescription;
+            resultDescEl.style.display = "block";
+        }
+
+        document.getElementById("result-buttons").style.display = "block";
+    }, 2500); // 2.5초 후 결과 표시
 }
 
 function afterMain() {
