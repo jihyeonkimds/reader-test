@@ -354,3 +354,45 @@ if (shareBtn) {
     });
   };
 }
+
+// 시작 화면 슬라이드 관련 전역 변수
+let backgroundTimer = null;
+let backgroundImgIndex = 0;
+const backgroundImages = [
+  "candy", "chocochip", "cocoa", "cottoncandy",
+  "jellybean", "pancake", "skewer", "spaghetti"
+].map(name => `assets/start-screen/${name}.jpeg`);
+
+// 슬라이드 시작 함수
+function startBackgroundSlideshow() {
+    const bg = document.getElementById("background");
+    if (!bg) return;
+  
+    function nextImage() {
+      backgroundImgIndex = (backgroundImgIndex + 1) % backgroundImages.length;
+      bg.src = backgroundImages[backgroundImgIndex];
+  
+      const nextDelay = 1000 + Math.random() * 1000;
+      backgroundTimer = setTimeout(nextImage, nextDelay);
+    }
+  
+    backgroundTimer = setTimeout(nextImage, 1500);
+  }
+
+// 퀴즈 시작 시 슬라이드 정지
+if (startBtn) {
+startBtn.onclick = () => {
+    userName = document.getElementById("username").value.trim();
+
+    // 슬라이드 멈춤
+    if (backgroundTimer) clearTimeout(backgroundTimer);
+
+    document.getElementById("start-screen").style.display = "none";
+    document.getElementById("quiz-container").style.display = "block";
+    questionSet = mainQuestions;
+    showQuestion(questionSet, afterMain);
+};
+}
+
+// DOM 로드 시 슬라이드 시작
+window.addEventListener("DOMContentLoaded", startBackgroundSlideshow);
