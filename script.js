@@ -337,6 +337,7 @@ if (retryBtn) {
         // 시작 화면으로 복귀
         document.getElementById("start-screen").style.display = "block";
         document.getElementById("question-number").style.display = "block";
+        startBackgroundSlideshow();
       };
 }
 
@@ -372,11 +373,11 @@ function startBackgroundSlideshow() {
       backgroundImgIndex = (backgroundImgIndex + 1) % backgroundImages.length;
       bg.src = backgroundImages[backgroundImgIndex];
   
-      const nextDelay = 1000 + Math.random() * 1000;
+      const nextDelay = 500 + Math.random() * 500;
       backgroundTimer = setTimeout(nextImage, nextDelay);
     }
   
-    backgroundTimer = setTimeout(nextImage, 1500);
+    backgroundTimer = setTimeout(nextImage, 300);
   }
 
 // 퀴즈 시작 시 슬라이드 정지
