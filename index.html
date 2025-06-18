@@ -1,60 +1,186 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>나의 독서 습관 유형은?</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍭 나만의 간식 친구 찾기 테스트 🍬</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <div id="start-screen">
-    <img src="assets/start-screen/candy.jpeg" id="background" class="background" alt="배경 이미지" />
-    <div class="start-button-wrapper">
-      <div class="overlay">
-        <input id="username" type="text" placeholder="이름을 입력하세요">
-        <button id="start-btn">테스트 시작하기</button>
-        <img src="assets/Epic-logo-white.png" alt="Epic Logo" id="logo">
-      </div>
-    </div>
-  </div>
-  
-  <div id="quiz-container" style="display: none;">
-    <div id="question-number" style="text-align: center; margin-top: 1rem; font-size: 1.2rem; color: #2c3e50;"></div>
-    <img src="assets/Sample-image.png" alt="Sample image" id="question-image">
-    <div id="question-wrapper" style="margin-bottom: 1.5rem;">
-      <div id="question-text" class="question"></div>
-    </div>
-    <div id="choices-wrapper">
-      <div id="quiz" class="question"></div>
-      <div id="back-button-wrapper"></div>
-    </div>
-    <div id="progress-wrapper" style="width: 100%; height: 6px; background: #eee;">
-      <div id="progress-bar" style="height: 6px; width: 0%; background: #3498db; transition: width 0.3s;"></div>
-    </div>
-  </div>
+    <div id="app">
+        <!-- Start Screen -->
+        <div id="start-screen" class="screen active">
+            <div class="container">
+                <header class="test-header">
+                    <h1 class="main-title">🍭 나만의 간식 친구 찾기 테스트 🍬</h1>
+                    <p class="sub-title">영어 독서 유형 테스트</p>
+                </header>
+                
+                <div class="character-showcase">
+                    <div class="character-slide-container">
+                        <div class="character-slide active" data-type="dreamy_cotton">
+                            <div class="character-card">
+                                <div class="character-emoji">🍭</div>
+                                <h3>몽글몽글 솜사탕</h3>
+                            </div>
+                        </div>
+                        <div class="character-slide" data-type="curious_cheese">
+                            <div class="character-card">
+                                <div class="character-emoji">🧀</div>
+                                <h3>호기심 많은 치즈큐브</h3>
+                            </div>
+                        </div>
+                        <div class="character-slide" data-type="quiet_cocoa">
+                            <div class="character-card">
+                                <div class="character-emoji">☕</div>
+                                <h3>조용한 코코아</h3>
+                            </div>
+                        </div>
+                        <div class="character-slide" data-type="candy_hunter">
+                            <div class="character-card">
+                                <div class="character-emoji">🍬</div>
+                                <h3>캔디 헌터</h3>
+                            </div>
+                        </div>
+                        <div class="character-slide" data-type="book_hopping">
+                            <div class="character-card">
+                                <div class="character-emoji">🍢</div>
+                                <h3>찍먹 꼬치</h3>
+                            </div>
+                        </div>
+                        <div class="character-slide" data-type="book_slurper">
+                            <div class="character-card">
+                                <div class="character-emoji">🍝</div>
+                                <h3>책순삭 스파게티</h3>
+                            </div>
+                        </div>
+                        <div class="character-slide" data-type="choco_curator">
+                            <div class="character-card">
+                                <div class="character-emoji">🍪</div>
+                                <h3>골라먹는 초코칩</h3>
+                            </div>
+                        </div>
+                        <div class="character-slide" data-type="exploring_jellybean">
+                            <div class="character-card">
+                                <div class="character-emoji">🍡</div>
+                                <h3>탐색하는 젤리빈</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="start-button-container">
+                    <button id="start-test-btn" class="btn btn--primary btn--lg">
+                        테스트 시작하기 ✨
+                    </button>
+                </div>
+                
+                <footer class="start-footer">
+                    <p class="participant-count">참여자 수: 1,234명</p>
+                    <p class="academy-logo">📚 에픽영어학원</p>
+                </footer>
+            </div>
+        </div>
 
-  <div id="loading-screen" style="display: none; text-align: center; padding: 4rem;">
-    <p style="font-size: 1.2rem; margin-bottom: 2rem;">간식 친구를 데려오고 있어요!</p>
-    <div class="loading-bar">
-      <div class="loading-fill"></div>
-    </div>
-  </div>
+        <!-- Name Input Screen -->
+        <div id="name-screen" class="screen">
+            <div class="container">
+                <div class="form-container">
+                    <h2 class="greeting">안녕! 너의 이름을 알려줄래? 😊</h2>
+                    <div class="form-group">
+                        <input type="text" id="user-name" class="form-control name-input" placeholder="이름을 입력해주세요" maxlength="10">
+                    </div>
+                    <button id="name-submit-btn" class="btn btn--primary btn--lg btn--full-width">
+                        다음으로 💫
+                    </button>
+                </div>
+            </div>
+        </div>
 
-  <div id="result-container" class="result" style="display: none;">
-    <div id="result" class="result-text"></div>
-    <img id="result-image" src="" alt="결과 이미지" style="display: none;" />
-    <p>이미지를 꾹 눌러 저장해주세요.</p>
-    <div id="result-description"></div>
-    <div id="cta-section" class="cta-section"></div>
-      <p>에픽영어학원의 커리큘럼을 경험해 보세요!</p>
-      <div id="cta-buttons"></div>
-    <div id="result-buttons" style="display: none;">
-      <button id="retry-btn" class="result-button">다시 하기</button>
-      <button id="share-btn" class="result-button">결과 공유하기</button>
-    </div>
-  </div>
+        <!-- Question Screen -->
+        <div id="question-screen" class="screen">
+            <div class="container">
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <span class="progress-text" id="progress-text">1/8</span>
+                </div>
+                
+                <div class="question-container">
+                    <h3 class="question-text" id="question-text"></h3>
+                    <div class="options-container" id="options-container">
+                        <!-- Options will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="navigation-buttons">
+                    <button id="prev-btn" class="btn btn--outline">← 이전 질문으로</button>
+                </div>
+            </div>
+        </div>
 
-<script src="script.js"></script>
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="screen">
+            <div class="container">
+                <div class="loading-container">
+                    <h2 class="loading-text">나만의 간식 친구를 데려오고 있어요! 🍪</h2>
+                    <div class="loading-bar">
+                        <div class="loading-progress" id="loading-progress"></div>
+                    </div>
+                    <p class="loading-subtext">잠시만 기다려주세요...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="result-screen" class="screen">
+            <div class="container">
+                <div class="result-container">
+                    <h2 class="result-announcement">당신의 영어독서 유형은...</h2>
+                    <div class="result-type-card">
+                        <div class="result-character" id="result-character">
+                            <!-- Character will be populated by JavaScript -->
+                        </div>
+                        <h3 class="result-type-name" id="result-type-name"></h3>
+                        <p class="result-type-subtitle" id="result-type-subtitle"></p>
+                    </div>
+                    
+                    <p class="save-instruction">이미지를 꾹 눌러 저장해주세요 📱</p>
+                    
+                    <div class="result-description">
+                        <h4>당신은 이런 아이예요!</h4>
+                        <p id="result-description-text"></p>
+                        <div class="characteristics" id="result-characteristics">
+                            <!-- Characteristics will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="cta-section">
+                        <h4 class="cta-title">에픽영어학원의 커리큘럼을 경험해 보세요!</h4>
+                        <div class="cta-buttons">
+                            <button class="btn btn--primary" onclick="window.open('#', '_blank')">
+                                상담 예약하기 📞
+                            </button>
+                            <button class="btn btn--outline" onclick="window.open('#', '_blank')">
+                                홈페이지 방문하기 🏠
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button id="restart-btn" class="btn btn--secondary btn--full-width">
+                            다시하기 🔄
+                        </button>
+                        <button id="share-btn" class="btn btn--primary btn--full-width">
+                            결과 공유하기 📢
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
