@@ -374,6 +374,24 @@ function showResult() {
     div.className = 'characteristic-item';
     div.textContent = characteristic;
     characteristicsContainer.appendChild(div);
+  
+    const answersText = userAnswers.map((index, i) => {
+      return questions[i].options[index].text;
+    });
+    
+    const payload = {
+      name: userName,
+      answers: answersText,
+      score: typeScores,
+      result: calculateResultType()
+    };
+    
+    fetch('https://script.google.com/macros/s/AKfycbzbzZjFOIMe4KOnS8-CkhIbFacDg70wOplsQFpUiTzXLIly2TAKtwr1wzAtkmQ7ZnWgVw/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    
   });
   
   // Apply theme color
